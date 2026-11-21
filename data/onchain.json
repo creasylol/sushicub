@@ -1,15 +1,57 @@
 {
-  "fetched": 1795291801,
+  "fetched": 1795291935,
   "token": "0x053531b55b33528b143ba7de58f783dcfc1ca28c",
   "deployer": "0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00",
-  "tokenError": "403 https://robinhoodchain.blockscout.com/api/v2/tokens/0x053531b55b33528b143ba7de58f783dcfc1ca28c",
-  "addressError": "403 https://robinhoodchain.blockscout.com/api/v2/addresses/0x053531b55b33528b143ba7de58f783dcfc1ca28c",
-  "deployerError": "403 https://robinhoodchain.blockscout.com/api/v2/addresses/0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00",
+  "name": "Sushicub",
+  "symbol": "SUSHICUB",
+  "decimals": 18,
+  "totalSupply": "1000000000000000000000000000",
+  "codeBytes": 1960,
   "stoa": {
-    "status": 422,
-    "routable": false,
-    "error": "No route for this pair and amount right now",
-    "route": null,
-    "amountOut": null
+    "control_usdg": {
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "amountOut": "16820373",
+      "route": {
+        "mid": null,
+        "legs": [
+          {
+            "venue": "0x27958279F95225b2a5517E7DD12b6Fc0317E5c5d",
+            "isPool": false,
+            "name": "Uniswap V4"
+          }
+        ]
+      }
+    },
+    "eth_0_0005": {
+      "status": 422,
+      "ok": false,
+      "error": "No route for this pair and amount right now",
+      "amountOut": null,
+      "route": null
+    },
+    "eth_0_001": {
+      "status": 422,
+      "ok": false,
+      "error": "No route for this pair and amount right now",
+      "amountOut": null,
+      "route": null
+    },
+    "eth_0_01": {
+      "status": 422,
+      "ok": false,
+      "error": "No route for this pair and amount right now",
+      "amountOut": null,
+      "route": null
+    },
+    "eth_0_1": {
+      "status": 422,
+      "ok": false,
+      "error": "No route for this pair and amount right now",
+      "amountOut": null,
+      "route": null
+    },
+    "routable": false
   }
 }
