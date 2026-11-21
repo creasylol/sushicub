@@ -1,6 +1,6 @@
 name: Refresh on-chain facts
 on:
-  schedule: [{ cron: "17 */6 * * *" }]
+  schedule: [{ cron: "17 * * * *" }]
   workflow_dispatch:
 permissions:
   contents: write

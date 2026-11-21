@@ -68,3 +68,13 @@ document.addEventListener("click", async (e) => {
   try { await navigator.clipboard.writeText(b.dataset.copy); const t = b.textContent; b.textContent = "Copied"; setTimeout(() => (b.textContent = t), 1400); } catch { /* blocked */ }
 });
 loadFacts().then(render);
+
+// Is Stoa able to route this token right now? Taken from the latest hourly probe.
+json("data/onchain.json").then((d) => {
+  if (!d.stoa || typeof d.stoa.routable !== "boolean") return;
+  const el = $("route-status"), when = new Date(d.fetched * 1000).toISOString().slice(0, 16).replace("T", " ") + " UTC";
+  el.hidden = false;
+  el.textContent = d.stoa.routable
+    ? `Stoa found a route for this token at ${when}.`
+    : `Stoa couldn’t route this token at ${when}. Until a pool exists on a venue Stoa uses, the widget shows a notice instead of a quote.`;
+}).catch(() => {});

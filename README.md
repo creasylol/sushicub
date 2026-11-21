@@ -8,7 +8,7 @@ Live: https://creasylol.github.io/sushicub/
 - Deployer: `0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00`
 - Creator on X: [@hermez042](https://x.com/hermez042)
 
-The page doesn’t just state the deployer: it reads the contract’s creator from the Blockscout API and shows whether it matches. A GitHub Action refreshes `data/onchain.json` every 6 hours as a fallback and checks that Stoa can quote the token.
+The page doesn’t just state the deployer: it reads the contract’s creator from the Blockscout API and shows whether it matches. A GitHub Action refreshes `data/onchain.json` every hour as a fallback and checks that Stoa can quote the token.
 
 The widget is Stoa’s official embed (`/embed/swap/robinhood/<token>`). It has no wallet connection inside the page, and swaps made through it carry the referrer set in `src/config.js`.
 
