@@ -1,0 +1,15 @@
+{
+  "fetched": 1795291801,
+  "token": "0x053531b55b33528b143ba7de58f783dcfc1ca28c",
+  "deployer": "0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00",
+  "tokenError": "403 https://robinhoodchain.blockscout.com/api/v2/tokens/0x053531b55b33528b143ba7de58f783dcfc1ca28c",
+  "addressError": "403 https://robinhoodchain.blockscout.com/api/v2/addresses/0x053531b55b33528b143ba7de58f783dcfc1ca28c",
+  "deployerError": "403 https://robinhoodchain.blockscout.com/api/v2/addresses/0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00",
+  "stoa": {
+    "status": 422,
+    "routable": false,
+    "error": "No route for this pair and amount right now",
+    "route": null,
+    "amountOut": null
+  }
+}
