@@ -1,81 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUSHICUB on Robinhood Chain</title>
-<meta name="description" content="SUSHICUB token on Robinhood Chain. Contract, pools.fun link, and a live Stoa swap widget (ETH to SUSHICUB).">
-<style>
-  :root { --bg:#0b0d12; --card:#141821; --line:#232a37; --text:#e8ecf3; --muted:#8b95a7; --accent:#ff8a3d; --accent2:#ffb36b; }
-  * { box-sizing:border-box; }
-  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:radial-gradient(1200px 600px at 50% -200px,#2a1a10 0%,var(--bg) 60%); color:var(--text); min-height:100vh; }
-  .wrap { max-width:960px; margin:0 auto; padding:24px 20px 64px; }
-  nav { display:flex; justify-content:space-between; align-items:center; padding:8px 0 32px; }
-  .brand { font-weight:800; letter-spacing:.5px; }
-  .brand span { color:var(--accent); }
-  .pill { font-size:12px; color:var(--muted); border:1px solid var(--line); padding:6px 10px; border-radius:999px; }
-  h1 { font-size:clamp(36px,6vw,64px); margin:0 0 12px; line-height:1.05; }
-  h1 em { font-style:normal; background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .lead { color:var(--muted); font-size:18px; max-width:620px; margin:0 0 28px; line-height:1.5; }
-  .btns { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:40px; }
-  .btn { text-decoration:none; padding:12px 18px; border-radius:10px; font-weight:600; border:1px solid var(--line); color:var(--text); background:var(--card); }
-  .btn.primary { background:var(--accent); color:#120a04; border-color:var(--accent); }
-  .grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-  @media (max-width:760px){ .grid{ grid-template-columns:1fr; } }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; }
-  .card h2 { margin:0 0 6px; font-size:20px; }
-  .card p.sub { margin:0 0 18px; color:var(--muted); font-size:14px; }
-  table { width:100%; border-collapse:collapse; font-size:14px; }
-  td { padding:10px 0; border-bottom:1px solid var(--line); vertical-align:top; }
-  td:first-child { color:var(--muted); width:40%; }
-  td.mono, .mono { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; word-break:break-all; font-size:13px; }
-  .copy { margin-top:12px; font-size:13px; color:var(--muted); }
-  iframe { width:100%; height:330px; border:0; border-radius:12px; background:#0e1219; }
-  .note { font-size:12px; color:var(--muted); margin-top:14px; line-height:1.5; }
-  a { color:var(--accent2); }
-  footer { margin-top:48px; color:var(--muted); font-size:12px; line-height:1.6; }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sushicub: the official home of the sushicub token on Robinhood Chain</title>
+<meta name="description" content="sushicub token details checked against the chain, plus a swap widget powered by Stoa on Robinhood Chain.">
+<meta property="og:title" content="sushicub on Robinhood Chain">
+<meta property="og:description" content="Token and deployer addresses checked against the chain, with a Stoa swap widget.">
+<meta name="theme-color" content="#fbf4e8">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<div class="wrap">
-  <nav>
-    <div class="brand">SUSHI<span>CUB</span></div>
-    <div class="pill">Robinhood Chain &middot; Chain ID 4663</div>
-  </nav>
-
-  <h1>SUSHI<em>CUB</em></h1>
-  <p class="lead">SUSHICUB is a token on Robinhood Chain. Trade it on pools.fun, or swap ETH into SUSHICUB below using the Stoa swap router.</p>
-  <div class="btns">
-    <a class="btn primary" href="https://pools.fun/token/0x053531b55b33528b143ba7de58f783dcfc1ca28c" target="_blank" rel="noopener">Trade on pools.fun</a>
-    <a class="btn" href="https://robinhoodchain.blockscout.com/token/0x053531b55b33528b143ba7de58f783dcfc1ca28c" target="_blank" rel="noopener">View on Blockscout</a>
-    <a class="btn" href="https://github.com/creasylol/sushicub" target="_blank" rel="noopener">Source code</a>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#cub"/></svg>sushicub</a>
+    <nav aria-label="Sections"><a href="#swap">Swap</a><a href="#token">Token</a><a href="#proof">Proof</a></nav>
+    <a class="btn ghost" id="x-top" rel="noopener" href="#">@hermez042 on X</a>
   </div>
+</header>
 
-  <div class="grid">
-    <div class="card">
-      <h2>Buy SUSHICUB</h2>
-      <p class="sub">Live quote and swap powered by Stoa. Pay with ETH.</p>
-      <iframe src="https://stoadex.com/embed/swap/robinhood/0x053531b55b33528b143ba7de58f783dcfc1ca28c?pay=ETH&ref=0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00" width="100%" height="330" style="max-width:420px;border:0" title="Swap ETH to SUSHICUB on Stoa" loading="lazy"></iframe>
-      <p class="note">Swaps are executed by your own wallet on Stoa. This site does not custody funds. Referrer: 0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00.</p>
-    </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cub" viewBox="0 0 64 64">
+    <circle cx="14" cy="14" r="8" fill="#1d2b25"/><circle cx="50" cy="14" r="8" fill="#1d2b25"/>
+    <circle cx="14" cy="14" r="4" fill="#ff7a59"/><circle cx="50" cy="14" r="4" fill="#ff7a59"/>
+    <circle cx="32" cy="36" r="26" fill="#1d2b25"/><circle cx="32" cy="36" r="21" fill="#fffaf0"/>
+    <circle cx="32" cy="36" r="12" fill="#ff7a59"/><circle cx="32" cy="36" r="5" fill="#8fbf3f"/>
+    <circle cx="25" cy="30" r="2" fill="#1d2b25"/><circle cx="39" cy="30" r="2" fill="#1d2b25"/>
+  </symbol>
+</svg>
 
-    <div class="card">
-      <h2>Token details</h2>
-      <p class="sub">Verified on Robinhood Chain.</p>
-      <table>
-        <tr><td>Name</td><td>SUSHICUB</td></tr>
-        <tr><td>Network</td><td>Robinhood Chain (ID 4663)</td></tr>
-        <tr><td>Contract</td><td class="mono">0x053531b55b33528b143ba7de58f783dcfc1ca28c</td></tr>
-        <tr><td>Deployer</td><td class="mono">0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00</td></tr>
-        <tr><td>Launch</td><td>pools.fun</td></tr>
-      </table>
-      <p class="copy">Always confirm the contract address above before trading.</p>
+<main id="top">
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <svg class="mascot" viewBox="0 0 64 64" role="img" aria-label="A sushi roll with bear ears"><use href="#cub"/></svg>
+      <h1>sushicub</h1>
+      <p class="lede">The official home of the sushicub token on <span id="chain-name">Robinhood Chain</span>. The addresses below aren’t just stated here, the page checks them against the chain every time you open it.</p>
+      <div class="chips">
+        <span class="chip" id="chip-symbol">Reading the chain…</span>
+        <span class="chip" id="chip-chain">Robinhood Chain</span>
+        <span class="chip ok" id="chip-verdict" hidden></span>
+      </div>
     </div>
+    <div class="swap-card" id="swap">
+      <h2>Swap into sushicub</h2>
+      <p class="muted small">Pay with ETH or USDG. The swap itself happens on Stoa, and no wallet connects inside this page.</p>
+      <iframe id="widget" title="Swap to sushicub on Stoa" width="100%" height="330" loading="lazy" style="border:0;border-radius:16px;max-width:420px"></iframe>
+      <p class="muted small">Showing this widget isn’t an endorsement from Stoa. <a id="stoa-link" rel="noopener" href="#">Open on Stoa</a></p>
+    </div>
+  </section>
+
+  <section class="wrap" id="token">
+    <h2 class="h">The token</h2>
+    <dl class="facts" id="facts"></dl>
+  </section>
+
+  <section class="wrap" id="proof">
+    <h2 class="h">Proof it’s the creator’s token</h2>
+    <p class="sub">Three checks, in order. The first two come straight from the chain’s public explorer when you load this page.</p>
+    <ol class="checks" id="checks"></ol>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>An independent community page for the sushicub token. Not financial advice, and nothing here promises any price or return. Memecoins can go to zero, so only use what you can afford to lose.</p>
+    <p class="muted">Swaps made through the widget name the creator’s wallet as the referrer on Stoa. Page source: <a id="repo" rel="noopener" href="https://github.com/creasylol/sushicub">github.com/creasylol/sushicub</a></p>
   </div>
-
-  <footer>
-    Not financial advice. Tokens are volatile and may lose all value. Always verify the contract address on Blockscout before interacting with it.
-  </footer>
-</div>
+</footer>
+<script type="module" src="src/site.js"></script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+name: Refresh on-chain facts
+on:
+  schedule: [{ cron: "17 */6 * * *" }]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/onchain.mjs
+      - name: Commit if changed
+        run: |
+          git config user.name "sushicub-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/onchain.json
+          git diff --cached --quiet || (git commit -m "Refresh on-chain facts" && git push)
