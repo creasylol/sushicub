@@ -2,10 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { verdict, fmtSupply, widgetUrl } from "../src/verify.js";
 import { CFG } from "../src/config.js";
-test("verdict compares case-insensitively", () => {
-  assert.equal(verdict(CFG.deployer.toLowerCase(), CFG.deployer), "match");
-  assert.equal(verdict("0x" + "1".repeat(40), CFG.deployer), "mismatch");
-  assert.equal(verdict(null, CFG.deployer), "unknown");
+test("verdict accepts the creator or the creation-tx sender, case-insensitively", () => {
+  const other = "0x" + "1".repeat(40);
+  assert.equal(verdict(CFG.deployer.toLowerCase(), null, CFG.deployer), "creator");
+  assert.equal(verdict(other, CFG.deployer.toLowerCase(), CFG.deployer), "sender");   // factory made it, deployer sent the tx
+  assert.equal(verdict(other, other, CFG.deployer), "mismatch");
+  assert.equal(verdict(null, null, CFG.deployer), "unknown");
 });
 test("supply formatting", () => {
   assert.equal(fmtSupply("1000000000000000000000000000", 18), "1 billion");

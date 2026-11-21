@@ -12,6 +12,7 @@ async function loadFacts() {
   try {
     const [t, a] = await Promise.all([json(`${CFG.explorer}/api/v2/tokens/${CFG.token}`), json(`${CFG.explorer}/api/v2/addresses/${CFG.token}`)]);
     Object.assign(out, { name: t.name, symbol: t.symbol, decimals: t.decimals, totalSupply: t.total_supply, holders: t.holders_count ?? t.holders, creator: a.creator_address_hash, creationTx: a.creation_transaction_hash || a.creation_tx_hash });
+    if (out.creationTx) { try { const tx = await json(`${CFG.explorer}/api/v2/transactions/${out.creationTx}`); out.creationFrom = tx.from?.hash; } catch { /* creator alone may still match */ } }
     return out;
   } catch { /* fall back to the snapshot an Action committed */ }
   try { const s = await json("data/onchain.json"); return { ...s, source: "snapshot" }; } catch { return { source: "none" }; }
@@ -22,11 +23,11 @@ function row(label, valueHtml, copy) {
 }
 
 function render(f) {
-  const v = f.creator ? verdict(f.creator, CFG.deployer) : "unknown";
+  const v = verdict(f.creator, f.creationFrom, CFG.deployer);
   const sym = f.symbol ? "$" + f.symbol : "sushicub";
   $("chip-symbol").textContent = f.source === "none" ? "Chain data unavailable" : sym;
   const chip = $("chip-verdict");
-  if (v !== "unknown") { chip.hidden = false; chip.className = "chip " + (v === "match" ? "ok" : "bad"); chip.textContent = v === "match" ? "Deployer confirmed on-chain" : "Deployer does not match the chain"; }
+  if (v !== "unknown") { const good = v === "creator" || v === "sender"; chip.hidden = false; chip.className = "chip " + (good ? "ok" : "bad"); chip.textContent = good ? "Deployer confirmed on-chain" : "Deployer does not match the chain"; }
 
   const rows = [
     row("Token contract", addr(CFG.token), CFG.token),
@@ -45,11 +46,14 @@ function render(f) {
   const c1 = f.name
     ? { cls: "ok", t: "The token contract exists on Robinhood Chain", d: `Explorer lists it as ${esc(f.name)} (${esc(f.symbol || "")})${via}. ${addr(CFG.token)}` }
     : { cls: "", t: "Checking the token contract", d: "The explorer didn’t answer. Open the contract link above to check it yourself." };
-  const c2 = v === "match"
-    ? { cls: "ok", t: "It was created by the deployer wallet shown here", d: `The explorer says the contract creator is ${addr(f.creator)}, the same wallet listed above.${f.creationTx ? ` Creation transaction: <a class="mono" href="${CFG.explorer}/tx/${esc(f.creationTx)}" rel="noopener">${esc(short(f.creationTx))}</a>.` : ""}` }
-    : v === "mismatch"
-      ? { cls: "bad", t: "The creator on-chain is a different wallet", d: `The explorer says the creator is ${addr(f.creator)}, not the deployer listed on this page. Don’t treat this page as the token creator’s.` }
-      : { cls: "", t: "Creator check unavailable", d: "The explorer didn’t return a creator. Open the contract link and look at the “Creator” line." };
+  const txLink = f.creationTx ? ` Creation transaction: <a class="mono" href="${CFG.explorer}/tx/${esc(f.creationTx)}" rel="noopener">${esc(short(f.creationTx))}</a>.` : "";
+  const c2 = v === "creator"
+    ? { cls: "ok", t: "It was created by the deployer wallet shown here", d: `The explorer says the contract creator is ${addr(f.creator)}, the same wallet listed above.${txLink}` }
+    : v === "sender"
+      ? { cls: "ok", t: "It was launched by the deployer wallet shown here", d: `The contract was created by a launcher contract (${addr(f.creator)}), and the transaction that created it was sent by ${addr(f.creationFrom)}, the deployer listed above.${txLink}` }
+      : v === "mismatch"
+        ? { cls: "bad", t: "The chain shows a different wallet", d: `The explorer shows creator ${addr(f.creator || "")} and creation sender ${addr(f.creationFrom || "")}, and neither is the deployer listed on this page. Don’t treat this page as the token creator’s.` }
+        : { cls: "", t: "Creator check unavailable", d: "The explorer didn’t return a creator. Open the contract link and look at the “Creator” line." };
   const c3 = CFG.xPost
     ? { cls: "ok", t: "The creator announced it from X", d: `<a href="${esc(CFG.xPost)}" rel="noopener">Post from @${esc(CFG.xHandle)}</a> confirms this token and this wallet.` }
     : { cls: "", t: "Announcement from X", d: `@${esc(CFG.xHandle)} will post that this is their token and wallet. The link goes here once it is up.` };

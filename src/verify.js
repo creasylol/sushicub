@@ -1,10 +1,17 @@
 export const lc = (a) => String(a || "").toLowerCase();
 export const short = (a) => (a ? a.slice(0, 6) + "…" + a.slice(-4) : "–");
 
-/** Does the explorer's creator for the token contract match the deployer the page claims? */
-export function verdict(creator, deployer) {
-  if (!creator) return "unknown";
-  return lc(creator) === lc(deployer) ? "match" : "mismatch";
+/**
+ * Does the chain agree the deployer wallet made this token?
+ * "creator" is the address that created the contract; "sender" is who sent the creation transaction.
+ * Launchpad tokens are created by a factory contract, so the deployer is then the sender, not the creator.
+ * Returns "creator", "sender", "mismatch" or "unknown".
+ */
+export function verdict(creator, sender, deployer) {
+  if (!creator && !sender) return "unknown";
+  if (creator && lc(creator) === lc(deployer)) return "creator";
+  if (sender && lc(sender) === lc(deployer)) return "sender";
+  return "mismatch";
 }
 
 /** Total supply as a readable number. raw and decimals come from the explorer as strings. */
