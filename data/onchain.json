@@ -1,5 +1,5 @@
 {
-  "fetched": 1795384268,
+  "fetched": 1795401824,
   "token": "0x053531b55b33528b143ba7de58f783dcfc1ca28c",
   "deployer": "0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00",
   "name": "Sushicub",
@@ -12,14 +12,14 @@
       "status": 200,
       "ok": true,
       "error": null,
-      "amountOut": "17203681",
+      "amountOut": "16950084",
       "route": {
         "mid": null,
         "legs": [
           {
-            "venue": "0x30868Df904E47549BC100c980857068F44F97c01",
+            "venue": "0xF325aCeC5efEb1B7275d5064dE0a4785601aE24A",
             "isPool": false,
-            "name": "up."
+            "name": "Ramses"
           }
         ]
       }
