@@ -1,5 +1,5 @@
 {
-  "fetched": 1795616432,
+  "fetched": 1795649831,
   "token": "0x053531b55b33528b143ba7de58f783dcfc1ca28c",
   "deployer": "0x50Dbb5Fcb0Df22F5F28286f914FbD18B0D2b8E00",
   "name": "Sushicub",
@@ -12,7 +12,7 @@
       "status": 200,
       "ok": true,
       "error": null,
-      "amountOut": "16356220",
+      "amountOut": "16899811",
       "route": {
         "mid": null,
         "legs": [
